@@ -10,7 +10,8 @@ $(function() {
         $items.each(function(idx){
             var post = posts[idx];
             if(post){
-                var tweetUrl = post.url;
+                // nameとembed_numberからURLを生成
+                var tweetUrl = 'https://twitter.com/' + post.name + '/status/' + post.embed_number + '?ref_src=twsrc%5Etfw';
                 var embedHtml = '<blockquote class="twitter-tweet"><a href="' + tweetUrl + '"></a></blockquote>';
                 $(this).html(embedHtml);
             }else{

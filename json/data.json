@@ -2,28 +2,28 @@
   "twitter_posts": [
     {
       "id": "1",
-      "url": "https://twitter.com/MiracleGoldSP/status/1928045404286861745?ref_src=twsrc%5Etfw",
-      "embed_html": ""
+      "name": "MiracleGoldSP",
+      "embed_number": "1928045404286861745"
     },
     {
       "id": "2",
-      "url": "https://twitter.com/MiracleGoldSP/status/1922572088629719538?ref_src=twsrc%5Etfw",
-      "embed_html": ""
+      "name": "MiracleGoldSP",
+      "embed_number": "1922572088629719538"
     },
     {
       "id": "3",
-      "url": "https://twitter.com/MiracleGoldSP/status/1932043751154737613?ref_src=twsrc%5Etfw",
-      "embed_html": ""
+      "name": "MiracleGoldSP",
+      "embed_number": "1932043751154737613"
     },
     {
       "id": "4",
-      "url": "https://twitter.com/MiracleGoldSP/status/1928043894387749151?ref_src=twsrc%5Etfw",
-      "embed_html": ""
+      "name": "MiracleGoldSP",
+      "embed_number": "1928043894387749151"
     },
     {
       "id": "5",
-      "url": "https://twitter.com/MiracleGoldSP/status/1951209538775888229?ref_src=twsrc%5Etfw",
-      "embed_html": ""
+      "name": "MiracleGoldSP",
+      "embed_number": "1951209538775888229"
     }
   ]
 }
