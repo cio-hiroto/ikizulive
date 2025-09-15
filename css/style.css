@@ -1,22 +1,180 @@
-/* Twitter埋め込み横並び・レスポンシブ */
+/* 事前レンダリング用 */
+.twitter-embed-item.preload {
+    visibility: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: 0 !important;
+    display: block !important;
+}
+    visibility: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: 0 !important;
+    display: block !important;
+/* Twitterカルーセル用 */
+.twitter-embed-carousel {
+    position: relative;
+    position: absolute !important;
+    left: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 100 !important;
+    width: 40px !important;
+    height: 40px !important;
+    background: #f7f7f7 !important;
+    border-radius: 50% !important;
+    font-size: 2rem !important;
+    color: #0057b8 !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07) !important;
+    border: none !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    background: #f7f7f7;
+    border-radius: 50%;
+    font-size: 2rem;
+    color: #0057b8;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border: none;
+    margin: 0;
+    transition: background 0.2s;
+    width: 100%;
+        max-width: 600px;
+    margin: 0 auto 32px auto;
+        overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .twitter-embed-list {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 16px;
-    justify-content: flex-start;
-    align-items: stretch;
-    margin: 32px 0;
-    min-height: 200px;
-    width: 100%;
-    overflow-x: auto;
-    max-width: 100%;
-    margin: 0 auto;
+    transition: transform 0.7s cubic-bezier(.77,0,.18,1);
+    will-change: transform;
+    position: absolute;
+        overflow: hidden; /* This line is retained for context */
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        z-index: auto;
 }
 .twitter-embed-item {
     min-width: 320px;
     max-width: 320px;
     width: 320px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.twitter-carousel-prev,
+.twitter-carousel-next {
+    position: absolute !important;
+    right: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 100 !important;
+    width: 40px !important;
+    height: 40px !important;
+    background: #f7f7f7 !important;
+    border-radius: 50% !important;
+    font-size: 2rem !important;
+    color: #0057b8 !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07) !important;
+    border: none !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    background: #f7f7f7;
+    border-radius: 50%;
+    font-size: 2rem;
+    color: #0057b8;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border: none;
+    margin: 0;
+    transition: background 0.2s;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: #f7f7f7;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1.5rem;
+    color: #0057b8;
+    cursor: pointer;
+    margin: 0 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: background 0.2s;
+}
+.twitter-carousel-prev:hover,
+.twitter-carousel-next:hover {
+    background: #e0e0e0;
+}
+.twitter-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+.twitter-carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #b0b8c9;
+    border: 1px solid #b0b8c9;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+}
+.twitter-carousel-dot.active {
+    background: #0057b8;
+    border: 1px solid #0057b8;
+}
+/* Twitter埋め込み横並び・レスポンシブ */
+.twitter-embed-list {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    width: 100%;
+    overflow-x: hidden;
+    max-width: 100%;
+    margin: 0 auto;
+}
+.twitter-embed-item {
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    flex: 0 0 100%;
                 box-sizing: border-box;
                 background: #fff;
                 border-radius: 12px;
@@ -25,7 +183,10 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin: 0 auto;
+        min-width: 100%;
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
 }
     .twitter-embed-list {
         grid-template-columns: repeat(3, 1fr);

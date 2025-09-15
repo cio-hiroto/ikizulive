@@ -44,8 +44,19 @@
   </header>
   <main>
     <section id="twitter-embed-section">
-      <div class="twitter-embed-list">
-        <!-- 最新5件のX(Twitter)投稿をembedで表示。jsでdata.json参照して埋め込む -->
+      <div class="twitter-embed-carousel">
+        <div class="twitter-embed-list-wrap">
+          <button class="twitter-carousel-prev" aria-label="前へ">&#9664;</button>
+          <div class="twitter-embed-list">
+            <div class="twitter-embed-item"></div>
+            <div class="twitter-embed-item"></div>
+            <div class="twitter-embed-item"></div>
+            <div class="twitter-embed-item"></div>
+            <div class="twitter-embed-item"></div>
+          </div>
+          <button class="twitter-carousel-next" aria-label="次へ">&#9654;</button>
+        </div>
+        <div class="twitter-carousel-dots"></div>
       </div>
     </section>
   </main>
