@@ -16,7 +16,7 @@
   <!-- サイドメニュー -->
   <nav class="side-menu" id="sideMenu">
     <ul>
-      <li><a href="#">メニュー1</a></li>
+      <li><a href="./project1/index.html">メニュー1</a></li>
       <li><a href="#">メニュー2</a></li>
       <li><a href="#">メニュー3</a></li>
       <li><a href="#">メニュー4</a></li>
@@ -28,28 +28,31 @@
       <li><a href="#">メニュー10</a></li>
     </ul>
   </nav>
-  <header>
-    <h1>ようこそ！テンプレートサイト</h1>
-    <nav>
-      <ul>
-        <li><a href="#">ホーム</a></li>
-        <li><a href="#">サービス</a></li>
-        <li><a href="#">会社情報</a></li>
-        <li><a href="#">お問い合わせ</a></li>
-      </ul>
-    </nav>
-    <p>これはサンプルの1ページWebサイトです。</p>
+  <header class="slider-header">
+    <div class="slider">
+      <div class="slide active"><img src="img/slide1.jpg" alt="スライド1"></div>
+      <div class="slide"><img src="img/slide2.jpg" alt="スライド2"></div>
+      <div class="slide"><img src="img/slide3.jpg" alt="スライド3"></div>
+      <!-- 必要に応じて画像追加 -->
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <!-- 画像数に合わせてドット追加 -->
+      </div>
+    </div>
   </header>
   <main>
-    <section>
-      <h2>セクションタイトル</h2>
-      <p>ここにサイトの説明やサービス内容などを記載できます。<br>デザインやレイアウトは自由にカスタマイズ可能です。</p>
-      <a href="#" class="btn">詳しく見る</a>
+    <section id="twitter-embed-section">
+      <div class="twitter-embed-list">
+        <!-- 最新5件のX(Twitter)投稿をembedで表示。jsでdata.json参照して埋め込む -->
+      </div>
     </section>
   </main>
   <footer>
     &copy; 2025 テンプレートサイト. All rights reserved.
   </footer>
   <script src="js/script.js"></script>
+  <script src="js/embed.js"></script>
 </body>
 </html>

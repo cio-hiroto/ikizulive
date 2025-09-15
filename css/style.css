@@ -1,3 +1,162 @@
+/* Twitter埋め込み横並び・レスポンシブ */
+.twitter-embed-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 16px;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin: 32px 0;
+    min-height: 200px;
+    width: 100%;
+    overflow-x: auto;
+    max-width: 100%;
+    margin: 0 auto;
+}
+.twitter-embed-item {
+    min-width: 320px;
+    max-width: 320px;
+    width: 320px;
+                box-sizing: border-box;
+                background: #fff;
+                border-radius: 12px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+                padding: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto;
+}
+    .twitter-embed-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 900px) {
+            .twitter-embed-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            .twitter-embed-item {
+                max-width: 180px;
+                min-width: 100px;
+                padding: 4px;
+            }
+}
+@media (max-width: 600px) {
+            .twitter-embed-list {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+            .twitter-embed-item {
+                max-width: 100%;
+                min-width: 80px;
+                padding: 2px;
+            }
+}
+/* スライダードットナビ */
+.slider-dots {
+    position: absolute;
+    top: 50%;
+    right: 32px;
+    transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        z-index: 20;
+                    background: rgba(224,224,224,0.5); /* 薄いグレー背景 */
+                    border-radius: 16px;
+                    padding: 16px 6px;
+}
+.slider-dots .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: #f7b731; /* 任意カラー例: 黄色 */
+                border: 1px solid #f7b731;
+                cursor: pointer;
+                transition: background 0.2s, border 0.2s;
+                box-shadow: none;
+}
+.slider-dots .dot.active {
+                background: #0057b8; /* カレントのみ別色 */
+                border: 1px solid #0057b8;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+}
+/* スライダー用スタイル */
+.slider-header {
+    width: 100%;
+    height: 100vh;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
+    max-width: 100%;
+}
+.slider {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    max-width: 100%;
+}
+.slide {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 2s;
+    z-index: 1;
+    max-width: 100%;
+}
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+.slide img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    display: block;
+    max-width: 100%;
+}
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 10;
+    pointer-events: none;
+}
+.slider-nav span {
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    font-size: 2.5rem;
+    padding: 12px 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    user-select: none;
+    transition: background 0.2s;
+}
+.slider-nav span:hover {
+    background: rgba(0,87,184,0.7);
+}
+@media (max-width: 600px) {
+    .slider-header, .slider, .slide img, .slide {
+        height: 60vh;
+        min-height: 220px;
+    }
+    .slider-nav span {
+        font-size: 2rem;
+        padding: 8px 16px;
+    }
+}
 /* ハンバーガーメニュー */
 .hamburger {
     position: fixed;
@@ -89,6 +248,7 @@ body {
     background: #f7f7f7;
     color: #222;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 /* ヘッダー */
