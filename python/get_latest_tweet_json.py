@@ -7,7 +7,7 @@ from twikit import Client
 USERNAME = "MiracleGoldSP"
 JSON_FILE = "tweets.json"
 BATCH_SIZE = 100
-SLEEP_SECONDS = 0.1
+SLEEP_SECONDS = 2
 
 async def fetch_all_tweets(client, user_id):
     all_tweets = []
@@ -56,19 +56,27 @@ async def main():
     else:
         all_data = []
 
-    # IDをキーに辞書化
     tweet_dict = {t["tweet_id"]: t for t in all_data}
+
+    added_count = 0
+    updated_count = 0
 
     for t in fetched_tweets:
         dt = parse_created_at(t)
         created_str = dt.strftime("%Y/%m/%d")
 
         if t.id in tweet_dict:
-            # 既存ツイートなら likes/retweetsのみ更新
-            tweet_dict[t.id]["likes"] = getattr(t, "favorite_count", 0)
-            tweet_dict[t.id]["retweets"] = getattr(t, "retweet_count", 0)
+            old_likes = tweet_dict[t.id]["likes"]
+            old_retweets = tweet_dict[t.id]["retweets"]
+
+            new_likes = getattr(t, "favorite_count", 0)
+            new_retweets = getattr(t, "retweet_count", 0)
+
+            if old_likes != new_likes or old_retweets != new_retweets:
+                tweet_dict[t.id]["likes"] = new_likes
+                tweet_dict[t.id]["retweets"] = new_retweets
+                updated_count += 1
         else:
-            # 新規ツイートなら追加
             tweet_dict[t.id] = {
                 "username": USERNAME,
                 "tweet_id": t.id,
@@ -78,12 +86,21 @@ async def main():
                 "likes": getattr(t, "favorite_count", 0),
                 "retweets": getattr(t, "retweet_count", 0)
             }
+            added_count += 1
 
-    # JSONに書き出し（最新順）
     all_data = sorted(tweet_dict.values(), key=lambda x: datetime.strptime(x["created_at"], "%Y/%m/%d"), reverse=True)
+
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(all_data, f, ensure_ascii=False, indent=4)
 
-    print(f"{len(all_data)} 件のツイートを処理しました。")
+    # 分岐ごとの視覚的な出力
+    if added_count > 0 and updated_count > 0:
+        print(f"JSON書き出し完了 → 新規追加: {added_count} 件, いいね/リツイート更新: {updated_count} 件")
+    elif added_count > 0:
+        print(f"JSON書き出し完了 → 新規追加: {added_count} 件")
+    elif updated_count > 0:
+        print(f"JSON書き出し完了 → いいね/リツイート更新: {updated_count} 件")
+    else:
+        print("JSON書き出し完了 → 変更なし（既存データのみ）")
 
 asyncio.run(main())
