@@ -9,8 +9,9 @@ JSON_FILE = "tweets.json"
 BATCH_SIZE = 100
 SLEEP_SECONDS = 0.1
 
-async def fetch_all_tweets(client, user_id, existing_ids):
+async def fetch_all_tweets(client, user_id):
     all_tweets = []
+    existing_ids = set()
     cursor = None
 
     while True:
@@ -25,7 +26,7 @@ async def fetch_all_tweets(client, user_id, existing_ids):
         if not tweets:
             break
 
-        # 未取得ツイートのみ
+        # 新規ツイートのみ追加
         new_tweets = [t for t in tweets if t.id not in existing_ids]
         if not new_tweets:
             break
@@ -43,48 +44,42 @@ async def fetch_all_tweets(client, user_id, existing_ids):
 
     return all_tweets
 
+def parse_created_at(t):
+    if isinstance(t.created_at, str):
+        return datetime.strptime(t.created_at, "%a %b %d %H:%M:%S %z %Y")
+    else:
+        return t.created_at
+
 async def main():
     client = Client('ja')
     client.load_cookies('cookies.json')
     user = await client.get_user_by_screen_name(USERNAME)
 
-    # JSON読み込み
-    if os.path.exists(JSON_FILE):
-        with open(JSON_FILE, "r", encoding="utf-8") as f:
-            all_data = json.load(f)
-        existing_ids = set(t["tweet_id"] for t in all_data)
-    else:
-        all_data = []
-        existing_ids = set()
-
     print("ツイート取得開始...")
-    new_tweets = await fetch_all_tweets(client, user.id, existing_ids)
+    tweets = await fetch_all_tweets(client, user.id)
 
-    # 新しい順にソート（最新が先頭）
-    def parse_created_at(t):
-        if isinstance(t.created_at, str):
-            return datetime.strptime(t.created_at, "%a %b %d %H:%M:%S %z %Y")
-        else:
-            return t.created_at
+    # 新しい順にソート（最新が上）
+    sorted_tweets = sorted(tweets, key=parse_created_at, reverse=True)
 
-    sorted_tweets = sorted(new_tweets, key=parse_created_at, reverse=True)
-
-    # JSONに追加（最新順）
+    all_data = []
     for t in sorted_tweets:
         dt = parse_created_at(t)
-        created_str = dt.strftime("%Y/%m/%d")  # YYYY/MM/DD形式
+        created_str = dt.strftime("%Y/%m/%d")
+
         data = {
             "username": USERNAME,
             "tweet_id": t.id,
             "text": t.text,
             "created_at": created_str,
-            "url": f"https://twitter.com/{USERNAME}/status/{t.id}"
+            "url": f"https://twitter.com/{USERNAME}/status/{t.id}",
+            "likes": getattr(t, "favorite_count", 0),
+            "retweets": getattr(t, "retweet_count", 0)
         }
-        all_data.append(data)  # 末尾追加で最新ツイートが上に来る
+        all_data.append(data)
 
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(all_data, f, ensure_ascii=False, indent=4)
 
-    print(f"{len(new_tweets)} 件のツイートを処理しました。")
+    print(f"{len(sorted_tweets)} 件のツイートを処理しました。")
 
 asyncio.run(main())
