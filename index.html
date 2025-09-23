@@ -4,7 +4,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>テンプレートサイト</title>
   <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style2.css">
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
@@ -46,23 +45,62 @@
     </div>
   </header>
   <main>
-    <section id="twitter-embed-section" style="display: none;">
-      <div class="twitter-embed-carousel">
-        <div class="twitter-embed-list-wrap">
-          <button class="twitter-carousel-prev" aria-label="前へ">&#9664;</button>
-          <div class="twitter-embed-list">
-            <div class="twitter-embed-item"></div>
-            <div class="twitter-embed-item"></div>
-            <div class="twitter-embed-item"></div>
-            <div class="twitter-embed-item"></div>
-            <div class="twitter-embed-item"></div>
+    <div class="main-flex-wrap">
+      <section class="main-flex-item staff_news">
+        <div class="news-header">
+          <div class="news-header-title">
+            <span class="news-release-label">News Release</span>
+            <h2 class="news-title-modern">ニュース</h2>
           </div>
-          <button class="twitter-carousel-next" aria-label="次へ">&#9654;</button>
+          <div class="news-btn-group">
+            <a href="#" class="news-btn-green">新着情報一覧</a>
+            <a href="#" class="news-btn-green">プレスリリース一覧</a>
+          </div>
         </div>
-        <div class="twitter-carousel-dots"></div>
-      </div>
-    </section>
-    <section>
+        <ul class="news-modern-list">
+          <li class="news-modern-item">
+            <div class="news-modern-date">
+              <span class="news-modern-date-main">2025</span>
+              <span class="news-modern-date-sub">09.05</span>
+            </div>
+            <div class="news-modern-meta">
+              <span class="news-modern-label">その他</span>
+            </div>
+            <div class="news-modern-content">
+              <a href="#" target="_blank">【新製品】『ペヤング 超大盛たらこやきそば』を次の日程にて順次発売いたします。</a>
+            </div>
+            <div class="news-modern-arrow">&rarr;</div>
+          </li>
+          <li class="news-modern-item">
+            <div class="news-modern-date">
+              <span class="news-modern-date-main">2025</span>
+              <span class="news-modern-date-sub">09.05</span>
+            </div>
+            <div class="news-modern-meta">
+              <span class="news-modern-label">その他</span>
+            </div>
+            <div class="news-modern-content">
+              <a href="#" target="_blank">【新製品】『ペヤング ソースやきそば岩井の胡麻油付き』を9月8日に発売いたします。</a>
+            </div>
+            <div class="news-modern-arrow">&rarr;</div>
+          </li>
+          <li class="news-modern-item">
+            <div class="news-modern-date">
+              <span class="news-modern-date-main">2025</span>
+              <span class="news-modern-date-sub">09.05</span>
+            </div>
+            <div class="news-modern-meta">
+              <span class="news-modern-label">ライブ</span>
+            </div>
+            <div class="news-modern-content">
+              <a href="#" target="_blank">【新製品】『ペヤング贅沢やきそば 本物の松茸』を9月8日に発売いたします。</a>
+            </div>
+            <div class="news-modern-arrow">&rarr;</div>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <section class="twitter-embed-dayly">
       <div class="splide" role="group" aria-label="1枚表示のスライダー(フェード)">
   <div class="splide__track">
     <div class="splide__list">
@@ -97,7 +135,7 @@
     &copy; 2025 テンプレートサイト. All rights reserved.
   </footer>
   <script src="js/script.js"></script>
-    <script src="js/script2.js"></script>
+  <script src="js/slider.js"></script>
   <script src="js/embed.js"></script>
 </body>
 </html>
