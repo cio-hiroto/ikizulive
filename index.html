@@ -217,6 +217,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 splide.mount();
+// マークを付けて二重初期化を防止
+window.__JS_SPLIDE_INITIALIZED = true;
+var _el = document.querySelector('#js-splide');
+if(_el) _el.setAttribute('data-initialized', 'true');
 </script>
   <script src="js/script.js"></script>
   <script src="js/slider.js"></script>

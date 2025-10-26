@@ -1,16 +1,40 @@
-const splide = new Splide(".splide", {
-  autoplay: true, // 自動再生
-  type: "fade", // ループ
-  rewind: true, // スライダーの終わりまで行ったら先頭に巻き戻す（デフォルトはfalse）
-  pauseOnHover: false, // カーソルが乗ってもスクロールを停止させない
-  pauseOnFocus: false, // 矢印をクリックしてもスクロールを停止させない
-  interval: 4000, // 自動再生の間隔
-  speed: 1000, // スライダーの移動時間
-}).mount();
+// 安全な Splide 初期化
+// 目的: ページ内の複数の .splide 要素を個別に初期化する。
+//       既に #js-splide のようにIDで初期化済みのものは再初期化しない。
+document.addEventListener('DOMContentLoaded', function () {
+  // 共通オプション（必要に応じて調整）
+  const commonOptions = {
+    autoplay: true,
+    type: 'fade',
+    rewind: true,
+    pauseOnHover: false,
+    pauseOnFocus: false,
+    interval: 4000,
+    speed: 1000,
+  };
 
-splide.on( 'autoplay:playing', function ( rate ) {
-  const progressBar = document.querySelector( '.splide__progress__bar' );
-  progressBar.style.width = rate * 100 + '%';
-} );
+  // 全ての .splide 要素を走査して個別にインスタンス化する
+  document.querySelectorAll('.splide').forEach(function (el) {
+    // もし特定のIDで既に別スクリプトが初期化している場合はスキップ
+    if (el.id && document.querySelector('#' + el.id + '.splide[data-initialized]')) return;
 
-splide.mount();
+    // 例: index.html内で #js-splide を手動初期化している場合は重複を避ける
+    if (el.id === 'js-splide' && window.__JS_SPLIDE_INITIALIZED) {
+      return;
+    }
+
+    try {
+      const instance = new Splide(el, commonOptions);
+      instance.on('autoplay:playing', function (rate) {
+        const progressBar = el.querySelector('.splide__progress__bar');
+        if (progressBar) progressBar.style.width = rate * 100 + '%';
+      });
+      instance.mount();
+      // マークを付与して二重初期化を防ぐ
+      el.setAttribute('data-initialized', 'true');
+    } catch (e) {
+      // 初期化失敗はconsoleへ出力して次へ
+      console.error('Splide init failed for element:', el, e);
+    }
+  });
+});

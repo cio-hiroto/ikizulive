@@ -1,3 +1,99 @@
+/* Splide styles scoped per slider -------------------------------------------------- */
+/* 1) Main hero slider (ID: #js-splide) - メイン用のスライダースタイル */
+#js-splide.splide {
+    margin-block: 24px;
+    margin-inline: auto;
+}
+#js-splide.splide .splide__slide {
+    height: 200px;
+    background-color: #7ba57b;
+}
+#js-splide.splide .splide__pagination {
+    margin-block-start: 8px;
+    gap: 4px;
+    position: static;
+}
+#js-splide.splide .splide__pagination li {
+    display: flex;
+    width: 40px;
+    height: 4px;
+}
+#js-splide.splide .splide__pagination__page {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    background: #ededed;
+    position: relative;
+    opacity: 1;
+    color: #193219;
+}
+#js-splide.splide .splide__pagination__page::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    will-change: width;
+}
+#js-splide.splide .splide__pagination__page.is-active {
+    background: #ededed;
+    transform: scale(1);
+}
+#js-splide.splide .splide__pagination__page.is-active::after {
+    width: var(--playing-rate);
+    background: currentColor;
+}
+
+/* 2) Twitter embed slider - 埋め込み用スライダースタイル
+     .twitter-embed-dayly 内の .splide にのみ適用するため、他へ影響しません */
+.twitter-embed-dayly .splide {
+    margin-block: 12px;
+    margin-inline: auto;
+}
+.twitter-embed-dayly .splide .splide__slide {
+    height: auto; /* 埋め込みブロックの高さに合わせる */
+    background-color: transparent;
+}
+.twitter-embed-dayly .splide .splide__pagination {
+    margin-block-start: 8px;
+    gap: 4px;
+    position: static;
+}
+.twitter-embed-dayly .splide .splide__pagination li {
+    display: flex;
+    width: 40px;
+    height: 4px;
+}
+.twitter-embed-dayly .splide .splide__pagination__page {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    background: #ededed;
+    position: relative;
+    opacity: 1;
+    color: #193219;
+}
+.twitter-embed-dayly .splide .splide__pagination__page::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    will-change: width;
+}
+.twitter-embed-dayly .splide .splide__pagination__page.is-active {
+    background: #ededed;
+    transform: scale(1);
+}
+.twitter-embed-dayly .splide .splide__pagination__page.is-active::after {
+    width: var(--playing-rate);
+    background: currentColor;
+}
+
 /* 事前レンダリング用 */
 .twitter-embed-item.preload {
     visibility: hidden !important;
@@ -6,11 +102,6 @@
     top: 0 !important;
     display: block !important;
 }
-    visibility: hidden !important;
-    position: absolute !important;
-    left: -9999px !important;
-    top: 0 !important;
-    display: block !important;
 /* Twitterカルーセル用 */
 .twitter-embed-carousel {
     position: relative;
@@ -188,10 +279,7 @@
         width: 100%;
         margin: 0;
 }
-    .twitter-embed-list {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
+    /* (cleanup) removed redundant grid-template block */
 @media (max-width: 900px) {
             .twitter-embed-list {
                 grid-template-columns: repeat(2, 1fr);
@@ -453,8 +541,9 @@ nav a:hover {
 
 main {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin: 0 32px;
+    padding: 32px 0;
     background: #fff;
 }
 
@@ -1249,7 +1338,6 @@ footer {
     color: #0d47a1;
     box-shadow: 0 4px 16px rgba(25,118,210,0.10);
     transform: translateY(-2px) scale(1.02);
-}
 @media (max-width: 1100px) {
     .main-flex-wrap {
         flex-direction: column;
@@ -1294,9 +1382,6 @@ footer {
     background: linear-gradient(135deg, #e3f0ff 0%, #f8fafc 100%);
     border-radius: 16px;
     box-shadow: 0 4px 24px rgba(44,62,80,0.10);
-    padding: 40px 32px;
-    margin: 40px auto;
-    max-width: 640px;
     position: relative;
     overflow: hidden;
 }
