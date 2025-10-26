@@ -1,3 +1,4 @@
+/* slide.css - cleaned and minimal pagination styles (avoid conflicts) */
 .splide2 {
   margin-block: 24px;
   margin-inline: auto;
@@ -12,42 +13,44 @@
   margin-block-start: 8px;
   gap: 4px;
   position: static;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .splide__pagination2 li {
-  display: flex;
-  width: 40px;
-  height: 4px;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  margin: 0 6px;
 }
 
 .splide__pagination__page {
-  width: 100%;
-  height: 100%;
+  display: block;
+  width: 40px;
+  height: 6px;
   margin: 0;
-  border-radius: 0;
+  border-radius: 3px;
   background: #ededed;
   position: relative;
-  opacity: 1;
-  color: #193219;
+  overflow: hidden;
+}
 
 .splide__pagination__page::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    bottom: 0;
-    will-change: width;
-  }
+  content: "";
+  display: block;
+  width: 0;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: currentColor;
+}
 
-  /* アクティブなスライドに紐づくページネーション */
-  .is-active {
-    background: #ededed;
-    transform: scale(1);
-
-    .is-active::after {
-      width: var(--playing-rate);
-      background: currentColor;
-    }
-  }
+.splide__pagination__page.is-active {
+  background: #ededed;
+}
+.splide__pagination__page.is-active::after {
+  width: var(--playing-rate);
+  background: currentColor;
 }

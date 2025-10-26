@@ -25,9 +25,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
       const instance = new Splide(el, commonOptions);
+      // set CSS variable for pagination progress so ::after can use var(--playing-rate)
       instance.on('autoplay:playing', function (rate) {
-        const progressBar = el.querySelector('.splide__progress__bar');
-        if (progressBar) progressBar.style.width = rate * 100 + '%';
+        try {
+          var pagination = el.querySelector('.splide__pagination');
+          if (pagination) pagination.style.setProperty('--playing-rate', (rate * 100) + '%');
+        } catch (e) {
+          // ignore
+        }
       });
       instance.mount();
       // マークを付与して二重初期化を防ぐ

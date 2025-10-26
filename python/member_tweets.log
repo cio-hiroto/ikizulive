@@ -1,0 +1,103 @@
+
+=== Run batch at 2025-10-26T23:11:39.597321 ===
+--- Running: akira.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → いいね/リツイート更新: 9 件
+--- akira.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: aurora.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → いいね/リツイート更新: 11 件
+--- aurora.py finished OK ---
+Waiting 120 seconds before next script...
+
+=== Run batch at 2025-10-26T23:15:14.305576 ===
+--- Running: akira.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 変更なし（既存データのみ）
+--- akira.py finished OK ---
+Waiting 120 seconds before next script...
+
+=== Run batch at 2025-10-26T23:17:27.648433 ===
+--- Running: akira.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 変更なし（既存データのみ）
+--- akira.py finished OK ---
+Waiting 30 seconds before next script...
+--- Running: aurora.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → いいね/リツイート更新: 6 件
+--- aurora.py finished OK ---
+Waiting 30 seconds before next script...
+--- Running: hanabi.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 114 件
+--- hanabi.py finished OK ---
+Waiting 30 seconds before next script...
+--- Running: mai.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → いいね/リツイート更新: 8 件
+--- mai.py finished OK ---
+Waiting 30 seconds before next script...
+--- Running: midori.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → いいね/リツイート更新: 8 件
+--- midori.py finished OK ---
+Waiting 30 seconds before next script...
+--- Running: miracle.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → いいね/リツイート更新: 7 件
+--- miracle.py finished OK ---
+Waiting 30 seconds before next script...
+--- Running: noriko.py ---
+STDOUT:
+ツイート取得開始...
+STDERR:
+Traceback (most recent call last):
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/noriko.py", line 113, in <module>
+    asyncio.run(main())
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/noriko.py", line 57, in main
+    fetched_tweets = await fetch_all_tweets(client, user.id)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/noriko.py", line 22, in fetch_all_tweets
+    tweets_response = await client.get_user_tweets(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 1911, in get_user_tweets
+    response, _ = await f(user_id, count, cursor)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 322, in user_tweets
+    return await self._get_user_tweets(user_id, count, cursor, Endpoint.USER_TWEETS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 319, in _get_user_tweets
+    return await self.gql_get(endpoint, variables, FEATURES)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 124, in gql_get
+    return await self.base.get(url, params=flatten_params(params), headers=headers, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 211, in get
+    return await self.request('GET', url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 198, in request
+    raise TooManyRequests(message, headers=response.headers)
+twikit.errors.TooManyRequests: status: 429, message: "Rate limit exceeded
+"
+*** noriko.py exited with code 1 ***
+=== Batch finished at 2025-10-26T23:22:45.868048 - overall_ok=False ===

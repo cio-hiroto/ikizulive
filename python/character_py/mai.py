@@ -4,8 +4,13 @@ import os
 from datetime import datetime
 from twikit import Client
 
-USERNAME = "MiracleGoldSP"
-JSON_FILE = "tweets.json"
+USERNAME = "My_Mai_Eld"
+# 出力先ディレクトリ（絶対パスではなくスクリプト相対で指定）
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), 'character_json')
+# ディレクトリがなければ作成
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+# 出力ファイルパス
+JSON_FILE = os.path.join(OUTPUT_DIR, 'mai_tweets.json')
 BATCH_SIZE = 100
 SLEEP_SECONDS = 2
 
@@ -43,7 +48,9 @@ def parse_created_at(t):
 
 async def main():
     client = Client('ja')
-    client.load_cookies('cookies.json')
+    # Load cookies.json located next to this script (robust against current working directory)
+    cookie_path = os.path.join(os.path.dirname(__file__), 'cookies.json')
+    client.load_cookies(cookie_path)
     user = await client.get_user_by_screen_name(USERNAME)
 
     print("ツイート取得開始...")

@@ -46,6 +46,10 @@
     background: currentColor;
 }
 
+/* Pagination: use default bar-style (controlled by ::after width = var(--playing-rate)).
+   No forced box-like overrides here so design remains as originally rendered. */
+
+
 /* 2) Twitter embed slider - 埋め込み用スライダースタイル
      .twitter-embed-dayly 内の .splide にのみ適用するため、他へ影響しません */
 .twitter-embed-dayly .splide {
@@ -92,6 +96,44 @@
 .twitter-embed-dayly .splide .splide__pagination__page.is-active::after {
     width: var(--playing-rate);
     background: currentColor;
+}
+
+/* Twitter埋め込み側の pagination 強制表示 */
+/* Ensure twitter-embed pagination behaves the same as #js-splide */
+.twitter-embed-dayly .splide.splide:not(.is-overflow) .splide__pagination,
+.twitter-embed-dayly .splide .splide__pagination,
+.twitter-embed-dayly .splide .splide__pagination--ltr {
+    display: flex !important; /* override core hide rule when not overflow */
+    pointer-events: auto !important;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+.twitter-embed-dayly .splide .splide__pagination li{
+    display: inline-block;
+}
+.twitter-embed-dayly .splide .splide__pagination__page{
+    width: 40px;
+    height: 4px;
+    margin: 0;
+    border-radius: 0;
+    background: #ededed;
+    position: relative;
+    overflow: hidden;
+    color: #193219;
+}
+.twitter-embed-dayly .splide .splide__pagination__page::after{
+    content: "";
+    display: block;
+    width: var(--playing-rate, 0%);
+    height: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: currentColor;
+}
+.twitter-embed-dayly .splide .splide__pagination__page.is-active::after{
+    width: var(--playing-rate, 100%);
 }
 
 /* 事前レンダリング用 */
@@ -599,10 +641,7 @@ footer {
   height: unset!important;
 }
 
-.splide__progress__bar {
-  height: 3px;
-  background: #ccc;
-}
+
 
 .splide--fade {
     width: 100%;

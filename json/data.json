@@ -1,29 +1,82 @@
-{
-  "twitter_posts": [
-    {
-      "id": "1",
-      "name": "MiracleGoldSP",
-      "embed_number": "1928045404286861745"
-    },
-    {
-      "id": "2",
-      "name": "MiracleGoldSP",
-      "embed_number": "1922572088629719538"
-    },
-    {
-      "id": "3",
-      "name": "MiracleGoldSP",
-      "embed_number": "1932043751154737613"
-    },
-    {
-      "id": "4",
-      "name": "MiracleGoldSP",
-      "embed_number": "1928043894387749151"
-    },
-    {
-      "id": "5",
-      "name": "MiracleGoldSP",
-      "embed_number": "1951209538775888229"
-    }
-  ]
-}
+[
+  {
+    "username": "Noricco_U",
+    "tweet_id": "1981685351115804859",
+    "text": "そういう気持ちは大事にした方がいいって奇跡ちゃんは言います\nそんなの人生で何回もないよって\n#いきづらい部",
+    "created_at": "2025/10/24",
+    "url": "https://twitter.com/Noricco_U/status/1981685351115804859",
+    "likes": 620,
+    "retweets": 133,
+    "flag": 1
+  },
+  {
+    "username": "Noricco_U",
+    "tweet_id": "1981684597273284796",
+    "text": "理由はよくわからないままに、でもやっぱり\n今でも試してみたい気持ちはどうしようもなく私の中にあるみたい\nできるなら行けるところまで行ってみたい\n今持っているものがこの手からこぼれ落ちてしまうとしても\n#いきづらい部",
+    "created_at": "2025/10/24",
+    "url": "https://twitter.com/Noricco_U/status/1981684597273284796",
+    "likes": 592,
+    "retweets": 120,
+    "flag": 1
+  },
+  {
+    "username": "Noricco_U",
+    "tweet_id": "1981683841057132965",
+    "text": "いつもどんくさくてそんな華やかな夢なんて\n自分とは縁のない遠い世界のことだって\nそう思うはずなのに\nなんでかな💦\n#いきづらい部",
+    "created_at": "2025/10/24",
+    "url": "https://twitter.com/Noricco_U/status/1981683841057132965",
+    "likes": 494,
+    "retweets": 90,
+    "flag": 1
+  },
+  {
+    "username": "Noricco_U",
+    "tweet_id": "1981683085986132290",
+    "text": "何をやってもうまくいく気がしなかった日々\n\nそんな私がなぜか試してみたいと思った声優への道🎤\n高校の進学先まで変えて\n#いきづらい部",
+    "created_at": "2025/10/24",
+    "url": "https://twitter.com/Noricco_U/status/1981683085986132290",
+    "likes": 520,
+    "retweets": 99,
+    "flag": 1
+  },
+  {
+    "username": "Noricco_U",
+    "tweet_id": "1981682331250250233",
+    "text": "私にはお姉ちゃんが２人いるんだけど\n私とは違って２人ともテキパキしてて\n要領がいいタイプでおしゃれだし主張もハッキリしてて…\nそんな２人を見てると私なんて…ってやっぱり思う\n#いきづらい部",
+    "created_at": "2025/10/24",
+    "url": "https://twitter.com/Noricco_U/status/1981682331250250233",
+    "likes": 639,
+    "retweets": 142,
+    "flag": 1
+  },
+  {
+    "username": "Noricco_U",
+    "tweet_id": "1981681576279978203",
+    "text": "でもきっと私にはそんなこと無理とも思ってた\n真面目なだけじゃあダメなのは\n小学校４年生くらいからなんとなくわかってきてたから\n#いきづらい部",
+    "created_at": "2025/10/24",
+    "url": "https://twitter.com/Noricco_U/status/1981681576279978203",
+    "likes": 525,
+    "retweets": 88,
+    "flag": 1
+  },
+  {
+    "username": "Noricco_U",
+    "tweet_id": "1981680821732794448",
+    "text": "なんとなく将来は\n地元の信用金庫とか農協とか病院とか\nそういうところに就職するのが\n１番いいんだろうなって思ってた\n#いきづらい部",
+    "created_at": "2025/10/24",
+    "url": "https://twitter.com/Noricco_U/status/1981680821732794448",
+    "likes": 1245,
+    "retweets": 258,
+    "flag": 1
+  },
+  {
+    "username": "Noricco_U",
+    "tweet_id": "1981680066133397931",
+    "text": "考えただけでお腹が痛くなる気がするけど\n考えなきゃいけないこと\n\n逃げたい…😿\n#いきづらい部",
+    "created_at": "2025/10/24",
+    "url": "https://twitter.com/Noricco_U/status/1981680066133397931",
+    "likes": 534,
+    "retweets": 90,
+    "flag": 1
+  }
+]
