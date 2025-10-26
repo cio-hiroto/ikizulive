@@ -902,9 +902,11 @@ footer {
         padding: 12px 8px;
     }
 }
+
+.news-table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 18px;
+    border-spacing: 0 12px;
 }
 .news-table tr {
     background: #fff;
@@ -1147,7 +1149,7 @@ footer {
     display: flex;
     align-items: stretch;
     justify-content: stretch;
-    width: 100%;
+    width: 60%;
     margin: 0 0 40px 0;
 }
 .main-flex-item {
@@ -1385,5 +1387,4 @@ footer {
         font-size: 1rem;
         padding: 12px 10px;
     }
-}
 }

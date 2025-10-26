@@ -8,6 +8,61 @@
   <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
 </head>
+<style>
+  .splide {
+  margin-block: 24px;
+  margin-inline: auto;
+}
+
+.splide__slide {
+  height: 200px;
+  background-color: #7ba57b;
+}
+
+.splide__pagination {
+  margin-block-start: 8px;
+  gap: 4px;
+  position: static;
+}
+
+.splide__pagination li {
+  display: flex;
+  width: 40px;
+  height: 4px;
+}
+
+.splide__pagination__page {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
+  background: #ededed;
+  position: relative;
+  opacity: 1;
+  color: #193219;
+}
+
+.splide__pagination__page::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  will-change: width;
+}
+
+.splide__pagination__page.is-active {
+  background: #ededed;
+  transform: scale(1);
+}
+
+.splide__pagination__page.is-active::after {
+  width: var(--playing-rate);
+  background: currentColor;
+}
+
+</style>
 <body>
   <!-- ハンバーガーメニュー -->
   <div class="hamburger" id="hamburger">
@@ -44,6 +99,15 @@
       </div>
     </div>
   </header>
+      <div id="js-splide" class="splide">
+  <div class="splide__track">
+    <ul class="splide__list">
+      <li class="splide__slide"></li>
+      <li class="splide__slide"></li>
+      <li class="splide__slide"></li>
+    </ul>
+  </div>
+</div>
   <main>
     <div class="main-flex-wrap">
       <section class="main-flex-item staff_news">
@@ -134,6 +198,26 @@
   <footer>
     &copy; 2025 テンプレートサイト. All rights reserved.
   </footer>
+    <script>
+  const splide = new Splide("#js-splide", {
+  type: "loop",
+  width: "80%",
+  padding: "20%",
+  gap: 10,
+  autoplay: true,
+  resetProgress: false, // ★
+});
+
+// ページネーションに自動再生の経過時間を付与する
+document.addEventListener("DOMContentLoaded", () => {
+  const pagination = splide.root.querySelector(".splide__pagination");
+  splide.on("autoplay:playing", (rate) => {
+    pagination.style.setProperty("--playing-rate", `${rate * 100}%`);
+  });
+});
+
+splide.mount();
+</script>
   <script src="js/script.js"></script>
   <script src="js/slider.js"></script>
   <script src="js/embed.js"></script>
