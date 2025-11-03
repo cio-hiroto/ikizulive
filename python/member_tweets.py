@@ -25,7 +25,7 @@ def main():
     py_files = [f for f in os.listdir(target_dir) if f.endswith('.py') and not f.startswith('__')]
     py_files.sort()
     # delay between successive script runs (seconds)
-    DELAY_SECONDS = 5  # 5 seconds
+    DELAY_SECONDS = 120  # 5 seconds
 
     log_path = os.path.join(base_dir, 'member_tweets.log')
     with open(log_path, 'a', encoding='utf-8') as logf:
@@ -55,12 +55,53 @@ def main():
                 print(err, end='', file=sys.stderr)
 
             if proc.returncode != 0:
-                overall_ok = False
-                fail_msg = f"*** {fname} exited with code {proc.returncode} ***\n"
+                # Retry failed script up to RETRY_MAX times with RETRY_DELAY seconds between attempts
+                RETRY_MAX = 5
+                RETRY_DELAY = 300  # 5 minutes
+                attempt = 0
+                failed = True
+                # log initial failure
+                fail_msg = f"*** {fname} exited with code {proc.returncode} (initial attempt) ***\n"
                 logf.write(fail_msg)
                 print(fail_msg, file=sys.stderr)
-                # Stop processing further scripts on error as requested
-                break
+
+                while attempt < RETRY_MAX:
+                    attempt += 1
+                    retry_msg = f"Retrying {fname} in {RETRY_DELAY} seconds (attempt {attempt}/{RETRY_MAX})...\n"
+                    logf.write(retry_msg)
+                    print(retry_msg, end='')
+                    time.sleep(RETRY_DELAY)
+
+                    rproc = subprocess.run([sys.executable, file_path], capture_output=True, text=True)
+                    rout = rproc.stdout or ''
+                    rerr = rproc.stderr or ''
+                    if rout:
+                        logf.write('RETRY STDOUT:\n')
+                        logf.write(rout)
+                        print(rout, end='')
+                    if rerr:
+                        logf.write('RETRY STDERR:\n')
+                        logf.write(rerr)
+                        print(rerr, end='', file=sys.stderr)
+
+                    if rproc.returncode == 0:
+                        ok_retry = f"--- {fname} succeeded on retry attempt {attempt} ---\n"
+                        logf.write(ok_retry)
+                        print(ok_retry, end='')
+                        failed = False
+                        break
+                    else:
+                        retry_fail = f"*** {fname} retry attempt {attempt} exited with code {rproc.returncode} ***\n"
+                        logf.write(retry_fail)
+                        print(retry_fail, file=sys.stderr)
+
+                if failed:
+                    overall_ok = False
+                    final_fail = f"*** {fname} failed after {RETRY_MAX} retries — aborting batch ***\n"
+                    logf.write(final_fail)
+                    print(final_fail, file=sys.stderr)
+                    break
+                # else: succeeded on retry, continue to next script
             else:
                 ok_msg = f"--- {fname} finished OK ---\n"
                 logf.write(ok_msg)
