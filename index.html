@@ -64,28 +64,26 @@
 
 </style>
 <body>
-  <!-- ハンバーガーメニュー -->
-  <div class="hamburger" id="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <!-- サイドメニュー -->
-  <nav class="side-menu" id="sideMenu">
-    <ul>
-      <li><a href="./project1/index.html">メニュー1</a></li>
-      <li><a href="#">メニュー2</a></li>
-      <li><a href="#">メニュー3</a></li>
-      <li><a href="#">メニュー4</a></li>
-      <li><a href="#">メニュー5</a></li>
-      <li><a href="#">メニュー6</a></li>
-      <li><a href="#">メニュー7</a></li>
-      <li><a href="#">メニュー8</a></li>
-      <li><a href="#">メニュー9</a></li>
-      <li><a href="#">メニュー10</a></li>
-    </ul>
-  </nav>
-  <header class="slider-header">
+  <!-- シンプルヘッダー (ハンバーガーメニューを廃止) -->
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <a href="/">
+          <span class="logo-icon" aria-hidden="true">▮</span>
+          <span class="logo-text">KURASHICOM</span>
+        </a>
+      </div>
+      <nav class="main-nav" aria-label="グローバルナビゲーション">
+        <ul>
+          <li><a href="/tweets/index.html">メンバーの呟き</a></li>
+          <li><a href="#">このサイトについて</a></li>
+          <li><a href="#">お問い合わせ</a></li>
+          <li><a href="#">更新履歴</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="slider-header">
     <div class="slider">
       <div class="slide active"><img src="img/slide1.jpg" alt="スライド1"></div>
       <div class="slide"><img src="img/slide2.jpg" alt="スライド2"></div>
@@ -98,7 +96,7 @@
         <!-- 画像数に合わせてドット追加 -->
       </div>
     </div>
-  </header>
+  </div>
       <div id="js-splide" class="splide">
   <div class="splide__track">
     <ul class="splide__list">
@@ -171,8 +169,21 @@
 </div>
     </section>
   </main>
-  <footer>
-    &copy; 2025 テンプレートサイト. All rights reserved.
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-left">
+        <span class="footer-brand">KURASHICOM</span>
+        <small class="footer-copy">&copy; 2025 テンプレートサイト. All rights reserved.</small>
+      </div>
+      <nav class="footer-nav" aria-label="フッターナビ">
+        <ul>
+          <li><a href="#">メンバーの呟き</a></li>
+          <li><a href="#">このサイトについて</a></li>
+          <li><a href="#">お問い合わせ</a></li>
+          <li><a href="#">更新履歴</a></li>
+        </ul>
+      </nav>
+    </div>
   </footer>
     <script>
   const splide = new Splide("#js-splide", {
@@ -198,7 +209,6 @@ window.__JS_SPLIDE_INITIALIZED = true;
 var _el = document.querySelector('#js-splide');
 if(_el) _el.setAttribute('data-initialized', 'true');
 </script>
-  <script src="js/script.js"></script>
   <script src="js/slider.js"></script>
   <script src="js/embed.js"></script>
   <script src="js/slider_element.js"></script>

@@ -70,7 +70,9 @@ async def main():
 
     for t in fetched_tweets:
         dt = parse_created_at(t)
-        created_str = dt.strftime("%Y/%m/%d")
+        # create combined date+time string (YYYY/MM/DD HH:MM:SS)
+        created_str = dt.strftime("%Y/%m/%d %H:%M:%S")
+    # time-only field removed per request; created_at includes full datetime
 
         if t.id in tweet_dict:
             old_likes = tweet_dict[t.id]["likes"]
@@ -89,13 +91,24 @@ async def main():
                 "tweet_id": t.id,
                 "text": t.text,
                 "created_at": created_str,
+                # created_at contains full datetime (YYYY/MM/DD HH:MM:SS)
                 "url": f"https://twitter.com/{USERNAME}/status/{t.id}",
                 "likes": getattr(t, "favorite_count", 0),
                 "retweets": getattr(t, "retweet_count", 0)
             }
             added_count += 1
 
-    all_data = sorted(tweet_dict.values(), key=lambda x: datetime.strptime(x["created_at"], "%Y/%m/%d"), reverse=True)
+    # sort by created_at which may be either "YYYY/MM/DD HH:MM:SS" or older "YYYY/MM/DD"
+    def _parse_created_field(s):
+        try:
+            return datetime.strptime(s, "%Y/%m/%d %H:%M:%S")
+        except Exception:
+            try:
+                return datetime.strptime(s, "%Y/%m/%d")
+            except Exception:
+                return datetime.min
+
+    all_data = sorted(tweet_dict.values(), key=lambda x: _parse_created_field(x.get("created_at", "")), reverse=True)
 
     with open(JSON_FILE, "w", encoding="utf-8") as f:
         json.dump(all_data, f, ensure_ascii=False, indent=4)

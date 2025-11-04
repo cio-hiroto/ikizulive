@@ -1,3 +1,158 @@
+/* Simple site header (replaces previous hamburger/side-menu) --------------------- */
+:root {
+    --site-header-height: 64px; /* デスクトップ時の基準高さ */
+}
+.site-header {
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    position: fixed; /* ここを固定表示に変更 */
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--site-header-height);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+/* ページコンテンツが固定ヘッダーに隠れないように余白を確保 */
+body {
+    padding-top: var(--site-header-height, 64px);
+}
+
+/* Simple horizontal footer ------------------------------------------------------ */
+.site-footer {
+    background: #ffffff;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    padding: 16px 0;
+}
+.site-footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+.footer-left {
+    display: flex;
+    flex-direction: column;
+}
+.footer-brand {
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+.footer-copy {
+    color: #666;
+    font-size: 13px;
+    margin-top: 4px;
+}
+.footer-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+.footer-nav a{
+    color: #111;
+    text-decoration: none;
+    font-size: 14px;
+}
+.footer-nav a:hover { color: #0070f3; }
+
+@media (max-width: 640px) {
+    .site-footer .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .footer-nav ul { gap: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .footer-copy { font-size: 12px; }
+}
+.site-header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px; /* 高さは header 自体で制御 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: nowrap; /* ロゴとナビを1行に保つ */
+    height: 100%;
+}
+.site-header .logo a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #111;
+}
+.logo-icon{
+    display: inline-block;
+    width: 28px;
+    height: 20px;
+    margin-right: 10px;
+    font-weight: 700;
+    line-height: 1;
+}
+.logo-text{
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+.main-nav ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    white-space: nowrap; /* 改行せず横並びを維持 */
+}
+.main-nav a{
+    color: #111;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 6px 4px;
+}
+.main-nav a:hover{
+    color: #0070f3;
+}
+.nav-english a{
+    font-weight: 600;
+}
+/* Ensure any old hamburger/side-menu rules do not show if present */
+.hamburger, .side-menu{ display: none !important; }
+
+/* Header responsiveness: 屏風狭い画面ではナビを縮める */
+@media (max-width: 900px) {
+    :root { --site-header-height: 56px; }
+    .site-header .container { padding: 0 16px; }
+    .main-nav ul { gap: 14px; }
+    .main-nav a { font-size: 14px; }
+}
+
+@media (max-width: 640px) {
+    /* 小さな画面ではロゴとナビを同一行に保ちつつ
+       ナビがはみ出す場合は横スクロールで閲覧させる */
+    :root { --site-header-height: 52px; }
+    .site-header .container {
+        padding: 0 12px;
+        gap: 12px;
+    }
+    .logo-text { font-size: 13px; }
+    .main-nav {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .main-nav ul {
+        gap: 12px;
+        padding-bottom: 6px; /* スクロール時に余白 */
+    }
+    .main-nav li { flex: 0 0 auto; }
+}
+
 /* Splide styles scoped per slider -------------------------------------------------- */
 /* 1) Main hero slider (ID: #js-splide) - メイン用のスライダースタイル */
 #js-splide.splide {
