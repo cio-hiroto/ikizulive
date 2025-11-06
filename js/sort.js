@@ -12,6 +12,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let items = [];
   let lastFilteredFull = [];
+  // global mapping for username -> Japanese display name
+  const AUTHOR_DISPLAY_MAP = {
+    'G_Akky304250': '五桐 玲',
+    'LittlegreenCom': '山田真緑',
+    'MiracleGoldSP': '金澤奇跡',
+    'My_Mai_Eld': '麻布麻衣',
+    'Noricco_U': '調布のりこ',
+    'Rollie_twinkle': '此花輝夜',
+    'ShaunTheBunny': '佐々木翔音',
+    'Yukuri_talk': '春宮ゆくり',
+    'hanabistarmine': '駒形花火',
+    'polka_lion': '高橋ポルカ'
+  };
+  function mapAuthor(name) {
+    if (!name) return '';
+    if (AUTHOR_DISPLAY_MAP[name]) return AUTHOR_DISPLAY_MAP[name];
+    const lower = name.toLowerCase();
+    for (const k of Object.keys(AUTHOR_DISPLAY_MAP)) {
+      if (k.toLowerCase() === lower) return AUTHOR_DISPLAY_MAP[k];
+    }
+    return name;
+  }
 
   function getField(o, candidates) {
     for (const k of candidates) {
@@ -73,11 +95,26 @@ document.addEventListener('DOMContentLoaded', function () {
       const tr = document.createElement('tr');
       const dateCell = document.createElement('td');
       const dt = parseDate(it);
-      dateCell.textContent = dt ? new Date(dt).toLocaleString() : '-';
+      // show date as YYYY/MM/DD HH:MM (no seconds), pad single digits with 0
+      function pad2(n) { return String(n).padStart(2, '0'); }
+      function formatDateMS(ms) {
+        const d = new Date(ms);
+        if (isNaN(d)) return '-';
+        const Y = d.getFullYear();
+        const M = pad2(d.getMonth() + 1);
+        const D = pad2(d.getDate());
+        const h = pad2(d.getHours());
+        const m = pad2(d.getMinutes());
+        return `${Y}/${M}/${D} ${h}:${m}`;
+      }
+      dateCell.textContent = dt ? formatDateMS(dt) : '-';
       dateCell.className = 'col-date';
 
-      const authorCell = document.createElement('td');
-      authorCell.textContent = getAuthor(it) || '-';
+  const authorCell = document.createElement('td');
+  const rawAuthor = getAuthor(it) || '';
+  // display mapped Japanese name when available; keep raw as title for reference
+  authorCell.textContent = rawAuthor ? mapAuthor(rawAuthor) : '-';
+  authorCell.title = rawAuthor;
       authorCell.className = 'col-author';
 
       const textCell = document.createElement('td');
@@ -114,7 +151,52 @@ document.addEventListener('DOMContentLoaded', function () {
         const td = document.createElement('td');
         td.colSpan = 3;
         const pre = document.createElement('pre');
-        pre.textContent = JSON.stringify(it, null, 2);
+        // show a pretty copy of the JSON but format created_at to remove seconds (display-only)
+        try {
+          const pretty = JSON.parse(JSON.stringify(it));
+          const ca = pretty.created_at || pretty.date || pretty.timestamp || pretty.created;
+          if (typeof ca === 'string') {
+            // try parse; if parseable, format with minutes precision; otherwise strip trailing :SS if present
+            const parsed = Date.parse(ca);
+            if (!isNaN(parsed)) {
+              pretty.created_at = formatDateMS(parsed);
+            } else {
+              // remove :SS at end if exists (e.g. YYYY/MM/DD HH:MM:SS)
+              pretty.created_at = ca.replace(/(:\d{2})(?:[\+]\d{2}:?\d{2}|Z)?$/,'').replace(/:\d{2}$/,'');
+            }
+          }
+          // map author fields in the pretty copy to Japanese display names when possible
+          try {
+            const authorKeys = ['username', 'author', 'screen_name', 'name'];
+            authorKeys.forEach(k => {
+              if (pretty[k] && typeof pretty[k] === 'string') {
+                const mapped = mapAuthor(pretty[k]);
+                if (mapped) pretty[k] = mapped;
+              }
+            });
+            // handle user object (if present) by adding user_display for clarity
+            if (pretty.user && typeof pretty.user === 'object') {
+              const u = pretty.user;
+              const uname = u.screen_name || u.username || u.name || u.id || '';
+              if (uname && AUTHOR_DISPLAY_MAP[uname]) {
+                pretty.user_display = mapAuthor(uname);
+              }
+            } else if (pretty.user && typeof pretty.user === 'string') {
+              const mapped = mapAuthor(pretty.user);
+              if (mapped) pretty.user = mapped;
+            }
+            // always add an author_display field using current item's author if present
+            try {
+              const currentAuthor = getAuthor(it);
+              if (currentAuthor) pretty.author_display = mapAuthor(currentAuthor);
+            } catch (e) {}
+          } catch (e) {
+            // ignore mapping errors
+          }
+          pre.textContent = JSON.stringify(pretty, null, 2);
+        } catch (e) {
+          pre.textContent = JSON.stringify(it, null, 2);
+        }
         pre.className = 'tweet-json';
         td.appendChild(pre);
         detailTr.appendChild(td);
@@ -200,7 +282,8 @@ document.addEventListener('DOMContentLoaded', function () {
     Array.from(authors).sort().forEach(a => {
       const opt = document.createElement('option');
       opt.value = a;
-      opt.textContent = a;
+      // display mapped name when available, otherwise show original
+      opt.textContent = AUTHOR_DISPLAY_MAP[a] || a;
       filterAuthorEl.appendChild(opt);
     });
   }
