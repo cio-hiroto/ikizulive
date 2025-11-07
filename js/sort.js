@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const filterAuthorEl = document.getElementById('filter-author');
   const hideHashtagsEl = document.getElementById('hide-hashtags');
   const searchBoxEl = document.getElementById('search-box');
+  const filterDateFromEl = document.getElementById('filter-date-from');
+  const filterDateToEl = document.getElementById('filter-date-to');
   const resetBtn = document.getElementById('reset-filters');
 
   let items = [];
@@ -68,9 +70,50 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function parseDate(item) {
-    const d = getField(item, ['created_at', 'date', 'timestamp', 'created']);
-    const parsed = Date.parse(d);
-    return isNaN(parsed) ? 0 : parsed;
+    const v = getField(item, ['created_at', 'date', 'timestamp', 'created']);
+    return parseDateString(v);
+  }
+
+  // Robust date string parser: supports ISO, "YYYY/MM/DD HH:MM:SS", "YYYY/MM/DD", and Date objects
+  function parseDateString(v) {
+    if (!v && v !== 0) return 0;
+    // if already a number (ms)
+    if (typeof v === 'number') return v;
+    // if it's a Date
+    if (v instanceof Date) return v.getTime();
+    let s = String(v).trim();
+    if (!s) return 0;
+    // try native parse first (handles ISO)
+    let t = Date.parse(s);
+    if (!isNaN(t)) return t;
+    // support common format: YYYY/MM/DD HH:MM:SS or YYYY/MM/DD
+    // replace fullwidth spaces and normalize
+    s = s.replace(/[　]/g, ' ').trim();
+    // regex for YYYY/MM/DD HH:MM:SS
+    const m1 = s.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})(?:[ T](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?/);
+    if (m1) {
+      const Y = Number(m1[1]);
+      const M = Number(m1[2]) - 1;
+      const D = Number(m1[3]);
+      const h = m1[4] ? Number(m1[4]) : 0;
+      const mi = m1[5] ? Number(m1[5]) : 0;
+      const sec = m1[6] ? Number(m1[6]) : 0;
+      const dt = new Date(Y, M, D, h, mi, sec);
+      if (!isNaN(dt.getTime())) return dt.getTime();
+    }
+    // try with hyphen (YYYY-MM-DD HH:MM:SS)
+    const m2 = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})(?:[ T](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?/);
+    if (m2) {
+      const Y = Number(m2[1]);
+      const M = Number(m2[2]) - 1;
+      const D = Number(m2[3]);
+      const h = m2[4] ? Number(m2[4]) : 0;
+      const mi = m2[5] ? Number(m2[5]) : 0;
+      const sec = m2[6] ? Number(m2[6]) : 0;
+      const dt = new Date(Y, M, D, h, mi, sec);
+      if (!isNaN(dt.getTime())) return dt.getTime();
+    }
+    return 0;
   }
 
   function getAuthor(item) {
@@ -325,6 +368,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // populateDateFilters removed; using single date input (#filter-date) instead
+
   function applySortAndFilter() {
     const sortBy = sortByEl.value;
     const order = sortOrderEl.value;
@@ -349,6 +394,32 @@ document.addEventListener('DOMContentLoaded', function () {
           return false;
         }
       });
+    }
+
+    // date range filter via two date inputs (YYYY-MM-DD)
+    try {
+      const from = filterDateFromEl && filterDateFromEl.value ? String(filterDateFromEl.value).trim() : '';
+      const to = filterDateToEl && filterDateToEl.value ? String(filterDateToEl.value).trim() : '';
+      let fromMs = null, toMs = null;
+      if (from) {
+        // from 00:00:00
+        fromMs = parseDateString(from + ' 00:00:00');
+      }
+      if (to) {
+        // to 23:59:59
+        toMs = parseDateString(to + ' 23:59:59');
+      }
+      if (fromMs !== null || toMs !== null) {
+        out = out.filter(i => {
+          const ms = parseDate(i);
+          if (!ms) return false;
+          if (fromMs !== null && ms < fromMs) return false;
+          if (toMs !== null && ms > toMs) return false;
+          return true;
+        });
+      }
+    } catch (e) {
+      // ignore
     }
 
     out.sort((a, b) => {
@@ -396,6 +467,38 @@ document.addEventListener('DOMContentLoaded', function () {
         items = Object.values(json).flat().filter(Boolean);
       }
       populateAuthorFilter(items);
+  // populate date filters based on available items
+      // set min/max on date pickers from data (if present)
+      if (filterDateFromEl || filterDateToEl) {
+        let minMs = Infinity, maxMs = -Infinity;
+        items.forEach(i => { const ms = parseDate(i); if (ms) { if (ms < minMs) minMs = ms; if (ms > maxMs) maxMs = ms; } });
+        function toYMD(ms) { const d = new Date(ms); const y = d.getFullYear(); const m = String(d.getMonth()+1).padStart(2,'0'); const day = String(d.getDate()).padStart(2,'0'); return `${y}-${m}-${day}`; }
+          if (minMs !== Infinity) {
+            if (filterDateFromEl) {
+              const ymd = toYMD(minMs);
+              filterDateFromEl.min = ymd;
+              // store original dataset bounds so we can restore on reset
+              filterDateFromEl.setAttribute('data-min', ymd);
+            }
+            if (filterDateToEl) {
+              const ymd = toYMD(minMs);
+              filterDateToEl.min = ymd;
+              filterDateToEl.setAttribute('data-min', ymd);
+            }
+          }
+          if (maxMs !== -Infinity) {
+            if (filterDateFromEl) {
+              const ymd = toYMD(maxMs);
+              filterDateFromEl.max = ymd;
+              filterDateFromEl.setAttribute('data-max', ymd);
+            }
+            if (filterDateToEl) {
+              const ymd = toYMD(maxMs);
+              filterDateToEl.max = ymd;
+              filterDateToEl.setAttribute('data-max', ymd);
+            }
+          }
+      }
       // store base items
       items = items;
       lastFilteredFull = items.slice();
@@ -409,12 +512,74 @@ document.addEventListener('DOMContentLoaded', function () {
   filterAuthorEl.addEventListener('change', applySortAndFilter);
   if (searchBoxEl) searchBoxEl.addEventListener('input', applySortAndFilter);
   if (hideHashtagsEl) hideHashtagsEl.addEventListener('change', applySortAndFilter);
+  if (filterDateFromEl) {
+    filterDateFromEl.addEventListener('change', function () {
+      try {
+        const fromVal = String(filterDateFromEl.value || '').trim();
+        if (filterDateToEl) {
+          if (fromVal) {
+            // prevent selecting an end date before the chosen start
+            filterDateToEl.min = fromVal;
+            // if currently selected to < from, clamp it to from
+            if (filterDateToEl.value && filterDateToEl.value < fromVal) {
+              filterDateToEl.value = fromVal;
+            }
+          } else {
+            // cleared start date -> restore to dataset min if available
+            if (filterDateToEl.getAttribute && filterDateToEl.getAttribute('data-min')) {
+              filterDateToEl.min = filterDateToEl.getAttribute('data-min');
+            }
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+      applySortAndFilter();
+    });
+  }
+
+  if (filterDateToEl) {
+    filterDateToEl.addEventListener('change', function () {
+      try {
+        const toVal = String(filterDateToEl.value || '').trim();
+        if (filterDateFromEl) {
+          if (toVal) {
+            // prevent selecting a start date after the chosen end
+            filterDateFromEl.max = toVal;
+            // if currently selected from > to, clamp it to to
+            if (filterDateFromEl.value && filterDateFromEl.value > toVal) {
+              filterDateFromEl.value = toVal;
+            }
+          } else {
+            // cleared end date -> restore to dataset max if available
+            if (filterDateFromEl.getAttribute && filterDateFromEl.getAttribute('data-max')) {
+              filterDateFromEl.max = filterDateFromEl.getAttribute('data-max');
+            }
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+      applySortAndFilter();
+    });
+  }
   resetBtn.addEventListener('click', function () {
     sortByEl.value = 'date';
     sortOrderEl.value = 'desc';
     filterAuthorEl.value = 'all';
     if (hideHashtagsEl) hideHashtagsEl.checked = false;
   if (searchBoxEl) searchBoxEl.value = '';
+  // clear date range inputs and restore original dataset bounds if stored
+  if (filterDateFromEl) {
+    filterDateFromEl.value = '';
+    if (filterDateFromEl.getAttribute && filterDateFromEl.getAttribute('data-min')) filterDateFromEl.min = filterDateFromEl.getAttribute('data-min');
+    if (filterDateFromEl.getAttribute && filterDateFromEl.getAttribute('data-max')) filterDateFromEl.max = filterDateFromEl.getAttribute('data-max');
+  }
+  if (filterDateToEl) {
+    filterDateToEl.value = '';
+    if (filterDateToEl.getAttribute && filterDateToEl.getAttribute('data-min')) filterDateToEl.min = filterDateToEl.getAttribute('data-min');
+    if (filterDateToEl.getAttribute && filterDateToEl.getAttribute('data-max')) filterDateToEl.max = filterDateToEl.getAttribute('data-max');
+  }
     applySortAndFilter();
   });
 });
