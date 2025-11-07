@@ -104,16 +104,23 @@
             </label>
           </div>
           <div class="filter-controls">
-            <label>投稿者で絞り込み:
-              <select id="filter-author">
-                <option value="all">すべて</option>
-              </select>
-            </label>
+            <div class="filter-left">
+              <label class="search-label">検索:
+                <input type="search" id="search-box" placeholder="本文を検索（部分一致）">
+              </label>
+            </div>
+            <div class="filter-right">
+              <label>投稿者で絞り込み:
+                <select id="filter-author">
+                  <option value="all">すべて</option>
+                </select>
+              </label>
               <label class="hide-hashtags-label">
                 <input type="checkbox" id="hide-hashtags">
                 ハッシュタグを非表示
               </label>
               <button id="reset-filters" type="button">リセット</button>
+            </div>
           </div>
         </div>
 

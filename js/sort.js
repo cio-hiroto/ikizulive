@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const sortOrderEl = document.getElementById('sort-order');
   const filterAuthorEl = document.getElementById('filter-author');
   const hideHashtagsEl = document.getElementById('hide-hashtags');
+  const searchBoxEl = document.getElementById('search-box');
   const resetBtn = document.getElementById('reset-filters');
 
   let items = [];
@@ -25,6 +26,30 @@ document.addEventListener('DOMContentLoaded', function () {
     'hanabistarmine': '駒形花火',
     'polka_lion': '高橋ポルカ'
   };
+  // normalize text for search: NFKC, convert Katakana -> Hiragana, lower-case
+  function katakanaToHiragana(s) {
+    // assume input is a single character
+    const code = s.charCodeAt(0);
+    // Katakana range U+30A1..U+30F6 -> Hiragana U+3041..U+3096 (offset 0x60)
+    if (code >= 0x30A1 && code <= 0x30F6) return String.fromCharCode(code - 0x60);
+    return s;
+  }
+
+  function normalizeForSearch(str) {
+    if (!str) return '';
+    try {
+      // NFKC to normalize half-width kana to full-width, etc.
+      let s = String(str).normalize('NFKC');
+      // convert Katakana block to Hiragana
+      let out = '';
+      for (let i = 0; i < s.length; i++) {
+        out += katakanaToHiragana(s[i]);
+      }
+      return out.toLowerCase();
+    } catch (e) {
+      return String(str).toLowerCase();
+    }
+  }
   function mapAuthor(name) {
     if (!name) return '';
     if (AUTHOR_DISPLAY_MAP[name]) return AUTHOR_DISPLAY_MAP[name];
@@ -229,9 +254,15 @@ document.addEventListener('DOMContentLoaded', function () {
     controls.className = 'pager-controls';
 
     const prev = document.createElement('button');
-    prev.type = 'button'; prev.textContent = '前へ'; prev.disabled = currentPage <= 1;
-    prev.addEventListener('click', () => { if (currentPage>1) { currentPage--; updatePage(); } });
-    controls.appendChild(prev);
+  // first button
+  const first = document.createElement('button');
+  first.type = 'button'; first.textContent = '最初'; first.disabled = currentPage <= 1;
+  first.addEventListener('click', () => { if (currentPage>1) { currentPage = 1; updatePage(); } });
+  controls.appendChild(first);
+
+  prev.type = 'button'; prev.textContent = '前へ'; prev.disabled = currentPage <= 1;
+  prev.addEventListener('click', () => { if (currentPage>1) { currentPage--; updatePage(); } });
+  controls.appendChild(prev);
 
     // page numbers (limited)
     const start = Math.max(1, currentPage - 3);
@@ -245,9 +276,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const next = document.createElement('button');
-    next.type = 'button'; next.textContent = '次へ'; next.disabled = currentPage >= totalPages;
-    next.addEventListener('click', () => { if (currentPage<totalPages) { currentPage++; updatePage(); } });
-    controls.appendChild(next);
+  next.type = 'button'; next.textContent = '次へ'; next.disabled = currentPage >= totalPages;
+  next.addEventListener('click', () => { if (currentPage<totalPages) { currentPage++; updatePage(); } });
+  controls.appendChild(next);
+
+  // last button
+  const last = document.createElement('button');
+  last.type = 'button'; last.textContent = '最後'; last.disabled = currentPage >= totalPages;
+  last.addEventListener('click', () => { if (currentPage<totalPages) { currentPage = totalPages; updatePage(); } });
+  controls.appendChild(last);
 
     // page size selector
     const sizeSel = document.createElement('select');
@@ -292,10 +329,26 @@ document.addEventListener('DOMContentLoaded', function () {
     const sortBy = sortByEl.value;
     const order = sortOrderEl.value;
     const filterAuthor = filterAuthorEl.value;
+  const searchVal = (searchBoxEl && searchBoxEl.value) ? String(searchBoxEl.value).trim() : '';
 
   let out = items.slice();
     if (filterAuthor && filterAuthor !== 'all') {
       out = out.filter(i => getAuthor(i) === filterAuthor);
+    }
+
+    // text search (partial match) on tweet body (case-insensitive)
+    if (searchVal) {
+      const normSearch = normalizeForSearch(searchVal.replace(/#[^\s#]+/g, ''));
+      out = out.filter(i => {
+        try {
+          const body = getText(i) || '';
+          // remove hashtags for search matching, normalize kana forms
+          const normBody = normalizeForSearch(body.replace(/#[^\s#]+/g, ''));
+          return normBody.indexOf(normSearch) !== -1;
+        } catch (e) {
+          return false;
+        }
+      });
     }
 
     out.sort((a, b) => {
@@ -354,12 +407,14 @@ document.addEventListener('DOMContentLoaded', function () {
   sortByEl.addEventListener('change', applySortAndFilter);
   sortOrderEl.addEventListener('change', applySortAndFilter);
   filterAuthorEl.addEventListener('change', applySortAndFilter);
+  if (searchBoxEl) searchBoxEl.addEventListener('input', applySortAndFilter);
   if (hideHashtagsEl) hideHashtagsEl.addEventListener('change', applySortAndFilter);
   resetBtn.addEventListener('click', function () {
     sortByEl.value = 'date';
     sortOrderEl.value = 'desc';
     filterAuthorEl.value = 'all';
     if (hideHashtagsEl) hideHashtagsEl.checked = false;
+  if (searchBoxEl) searchBoxEl.value = '';
     applySortAndFilter();
   });
 });
