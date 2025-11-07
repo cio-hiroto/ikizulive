@@ -524,6 +524,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (filterDateToEl.value && filterDateToEl.value < fromVal) {
               filterDateToEl.value = fromVal;
             }
+            // if end not set, default it to the same day -> show that single day
+            if (!filterDateToEl.value) {
+              filterDateToEl.value = fromVal;
+            }
           } else {
             // cleared start date -> restore to dataset min if available
             if (filterDateToEl.getAttribute && filterDateToEl.getAttribute('data-min')) {
@@ -534,6 +538,8 @@ document.addEventListener('DOMContentLoaded', function () {
       } catch (e) {
         // ignore
       }
+      // when user picks a date, prefer sorting by date (newest first) so the selection is obvious
+      try { if (sortByEl && sortByEl.value !== 'date') sortByEl.value = 'date'; if (sortOrderEl) sortOrderEl.value = 'desc'; } catch(e) {}
       applySortAndFilter();
     });
   }
@@ -550,6 +556,10 @@ document.addEventListener('DOMContentLoaded', function () {
             if (filterDateFromEl.value && filterDateFromEl.value > toVal) {
               filterDateFromEl.value = toVal;
             }
+            // if start not set, default it to the same day -> show that single day
+            if (!filterDateFromEl.value) {
+              filterDateFromEl.value = toVal;
+            }
           } else {
             // cleared end date -> restore to dataset max if available
             if (filterDateFromEl.getAttribute && filterDateFromEl.getAttribute('data-max')) {
@@ -560,6 +570,8 @@ document.addEventListener('DOMContentLoaded', function () {
       } catch (e) {
         // ignore
       }
+      // prefer sorting by date when user picks an end date
+      try { if (sortByEl && sortByEl.value !== 'date') sortByEl.value = 'date'; if (sortOrderEl) sortOrderEl.value = 'desc'; } catch(e) {}
       applySortAndFilter();
     });
   }
