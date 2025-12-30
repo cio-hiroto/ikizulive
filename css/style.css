@@ -716,11 +716,7 @@ body {
 
 /* ヘッダー */
 header {
-    background: #0057b8;
-    color: #fff;
-    padding: 24px 0;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
 }
 
 header h1 {

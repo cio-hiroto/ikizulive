@@ -846,3 +846,548 @@ Selected 9 items for 2025-11-06 (skipped 0 unparseable)
 Wrote /Applications/MAMP/htdocs/ikizulive/json/data.json
 --- embed.py finished OK ---
 === Batch finished at 2025-11-06T20:33:07.533273 - overall_ok=True ===
+
+=== Run batch at 2025-11-14T11:05:38.281763 ===
+--- Running: akira.py ---
+
+=== Run batch at 2025-11-14T11:05:43.425343 ===
+--- Running: akira.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 6 件, いいね/リツイート更新: 132 件
+--- akira.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: aurora.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 11 件, いいね/リツイート更新: 86 件
+--- aurora.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: hanabi.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 3 件, いいね/リツイート更新: 116 件
+--- hanabi.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: mai.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 2 件, いいね/リツイート更新: 145 件
+--- mai.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: midori.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 5 件, いいね/リツイート更新: 125 件
+--- midori.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: miracle.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 5 件, いいね/リツイート更新: 109 件
+--- miracle.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: noriko.py ---
+STDOUT:
+ツイート取得開始...
+STDERR:
+Traceback (most recent call last):
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/noriko.py", line 124, in <module>
+    asyncio.run(main())
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/noriko.py", line 57, in main
+    fetched_tweets = await fetch_all_tweets(client, user.id)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/noriko.py", line 22, in fetch_all_tweets
+    tweets_response = await client.get_user_tweets(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 1911, in get_user_tweets
+    response, _ = await f(user_id, count, cursor)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 322, in user_tweets
+    return await self._get_user_tweets(user_id, count, cursor, Endpoint.USER_TWEETS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 319, in _get_user_tweets
+    return await self.gql_get(endpoint, variables, FEATURES)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 124, in gql_get
+    return await self.base.get(url, params=flatten_params(params), headers=headers, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 211, in get
+    return await self.request('GET', url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 198, in request
+    raise TooManyRequests(message, headers=response.headers)
+twikit.errors.TooManyRequests: status: 429, message: "Rate limit exceeded
+"
+*** noriko.py exited with code 1 (initial attempt) ***
+Retrying noriko.py in 300 seconds (attempt 1/5)...
+RETRY STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 10 件, いいね/リツイート更新: 128 件
+--- noriko.py succeeded on retry attempt 1 ---
+Waiting 120 seconds before next script...
+--- Running: polka.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 3 件, いいね/リツイート更新: 177 件
+--- polka.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: shion.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 13 件, いいね/リツイート更新: 152 件
+--- shion.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: yukuri.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 4 件, いいね/リツイート更新: 101 件
+--- yukuri.py finished OK ---
+All scripts completed successfully — running merger: merger.py
+MERGER STDOUT:
+Loaded 144 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/akira_tweets.json
+Loaded 109 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/aurora_tweets.json
+Loaded 132 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/hanabi_tweets.json
+Loaded 152 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/mai_tweets.json
+Loaded 131 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/midori_tweets.json
+Loaded 116 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/miracle_tweets.json
+Loaded 141 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/noriko_tweets.json
+Loaded 186 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/polka_tweets.json
+Loaded 166 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/shion_tweets.json
+Loaded 115 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/yukuri_tweets.json
+Merged 1392 items into /Applications/MAMP/htdocs/ikizulive/json/merged_tweets.json
+--- merger.py finished OK ---
+Running embed: embed.py
+EMBED STDOUT:
+No items found for 2025-11-14, selecting latest date 2025-11-13 with 12 items
+Read 1392 items from /Applications/MAMP/htdocs/ikizulive/json/merged_tweets.json
+Selected 12 items for 2025-11-13 (skipped 0 unparseable)
+Wrote /Applications/MAMP/htdocs/ikizulive/json/data.json
+--- embed.py finished OK ---
+=== Batch finished at 2025-11-14T11:32:33.886486 - overall_ok=True ===
+
+=== Run batch at 2025-11-21T23:49:40.777052 ===
+--- Running: akira.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 7 件, いいね/リツイート更新: 144 件
+--- akira.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: aurora.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 6 件, いいね/リツイート更新: 102 件
+--- aurora.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: hanabi.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 8 件, いいね/リツイート更新: 132 件
+--- hanabi.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: mai.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 7 件, いいね/リツイート更新: 139 件
+--- mai.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: midori.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 7 件, いいね/リツイート更新: 131 件
+--- midori.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: miracle.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 5 件, いいね/リツイート更新: 113 件
+--- miracle.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: noriko.py ---
+STDOUT:
+ツイート取得開始...
+STDERR:
+Traceback (most recent call last):
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/noriko.py", line 124, in <module>
+    asyncio.run(main())
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/noriko.py", line 57, in main
+    fetched_tweets = await fetch_all_tweets(client, user.id)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/noriko.py", line 22, in fetch_all_tweets
+    tweets_response = await client.get_user_tweets(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 1911, in get_user_tweets
+    response, _ = await f(user_id, count, cursor)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 322, in user_tweets
+    return await self._get_user_tweets(user_id, count, cursor, Endpoint.USER_TWEETS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 319, in _get_user_tweets
+    return await self.gql_get(endpoint, variables, FEATURES)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 124, in gql_get
+    return await self.base.get(url, params=flatten_params(params), headers=headers, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 211, in get
+    return await self.request('GET', url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 198, in request
+    raise TooManyRequests(message, headers=response.headers)
+twikit.errors.TooManyRequests: status: 429, message: "Rate limit exceeded
+"
+*** noriko.py exited with code 1 (initial attempt) ***
+Retrying noriko.py in 300 seconds (attempt 1/5)...
+RETRY STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 9 件, いいね/リツイート更新: 139 件
+--- noriko.py succeeded on retry attempt 1 ---
+Waiting 120 seconds before next script...
+--- Running: polka.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 7 件, いいね/リツイート更新: 185 件
+--- polka.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: shion.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 9 件, いいね/リツイート更新: 163 件
+--- shion.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: yukuri.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 6 件, いいね/リツイート更新: 113 件
+--- yukuri.py finished OK ---
+All scripts completed successfully — running merger: merger.py
+MERGER STDOUT:
+Loaded 151 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/akira_tweets.json
+Loaded 115 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/aurora_tweets.json
+Loaded 140 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/hanabi_tweets.json
+Loaded 159 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/mai_tweets.json
+Loaded 138 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/midori_tweets.json
+Loaded 121 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/miracle_tweets.json
+Loaded 150 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/noriko_tweets.json
+Loaded 193 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/polka_tweets.json
+Loaded 175 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/shion_tweets.json
+Loaded 121 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/yukuri_tweets.json
+Merged 1463 items into /Applications/MAMP/htdocs/ikizulive/json/merged_tweets.json
+--- merger.py finished OK ---
+Running embed: embed.py
+EMBED STDOUT:
+No items found for 2025-11-22, selecting latest date 2025-11-21 with 13 items
+Read 1463 items from /Applications/MAMP/htdocs/ikizulive/json/merged_tweets.json
+Selected 13 items for 2025-11-21 (skipped 0 unparseable)
+Wrote /Applications/MAMP/htdocs/ikizulive/json/data.json
+--- embed.py finished OK ---
+=== Batch finished at 2025-11-22T00:16:48.964867 - overall_ok=True ===
+
+=== Run batch at 2025-12-18T11:55:39.653462 ===
+--- Running: akira.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 27 件, いいね/リツイート更新: 151 件
+--- akira.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: aurora.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 21 件, いいね/リツイート更新: 113 件
+--- aurora.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: hanabi.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 20 件, いいね/リツイート更新: 140 件
+--- hanabi.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: mai.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 34 件, いいね/リツイート更新: 158 件
+--- mai.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: midori.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 27 件, いいね/リツイート更新: 137 件
+--- midori.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: miracle.py ---
+STDOUT:
+ツイート取得開始...
+STDERR:
+Traceback (most recent call last):
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/miracle.py", line 124, in <module>
+    asyncio.run(main())
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/miracle.py", line 57, in main
+    fetched_tweets = await fetch_all_tweets(client, user.id)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/miracle.py", line 22, in fetch_all_tweets
+    tweets_response = await client.get_user_tweets(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 1911, in get_user_tweets
+    response, _ = await f(user_id, count, cursor)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 322, in user_tweets
+    return await self._get_user_tweets(user_id, count, cursor, Endpoint.USER_TWEETS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 319, in _get_user_tweets
+    return await self.gql_get(endpoint, variables, FEATURES)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 124, in gql_get
+    return await self.base.get(url, params=flatten_params(params), headers=headers, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 211, in get
+    return await self.request('GET', url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 198, in request
+    raise TooManyRequests(message, headers=response.headers)
+twikit.errors.TooManyRequests: status: 429, message: "Rate limit exceeded
+"
+*** miracle.py exited with code 1 (initial attempt) ***
+Retrying miracle.py in 300 seconds (attempt 1/5)...
+RETRY STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 13 件, いいね/リツイート更新: 121 件
+--- miracle.py succeeded on retry attempt 1 ---
+Waiting 120 seconds before next script...
+--- Running: noriko.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 10 件, いいね/リツイート更新: 149 件
+--- noriko.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: polka.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 21 件, いいね/リツイート更新: 193 件
+--- polka.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: shion.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 38 件, いいね/リツイート更新: 175 件
+--- shion.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: yukuri.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 13 件, いいね/リツイート更新: 121 件
+--- yukuri.py finished OK ---
+All scripts completed successfully — running merger: merger.py
+MERGER STDOUT:
+Loaded 178 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/akira_tweets.json
+Loaded 136 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/aurora_tweets.json
+Loaded 160 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/hanabi_tweets.json
+Loaded 193 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/mai_tweets.json
+Loaded 165 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/midori_tweets.json
+Loaded 134 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/miracle_tweets.json
+Loaded 160 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/noriko_tweets.json
+Loaded 214 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/polka_tweets.json
+Loaded 213 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/shion_tweets.json
+Loaded 134 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/yukuri_tweets.json
+Merged 1687 items into /Applications/MAMP/htdocs/ikizulive/json/merged_tweets.json
+--- merger.py finished OK ---
+Running embed: embed.py
+EMBED STDOUT:
+No items found for 2025-12-18, selecting latest date 2025-12-17 with 17 items
+Read 1687 items from /Applications/MAMP/htdocs/ikizulive/json/merged_tweets.json
+Selected 17 items for 2025-12-17 (skipped 0 unparseable)
+Wrote /Applications/MAMP/htdocs/ikizulive/json/data.json
+--- embed.py finished OK ---
+=== Batch finished at 2025-12-18T12:23:24.972242 - overall_ok=True ===
+
+=== Run batch at 2025-12-30T15:30:59.014942 ===
+--- Running: akira.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 7 件, いいね/リツイート更新: 163 件
+--- akira.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: aurora.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 9 件, いいね/リツイート更新: 110 件
+--- aurora.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: hanabi.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 20 件, いいね/リツイート更新: 137 件
+--- hanabi.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: mai.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 4 件, いいね/リツイート更新: 163 件
+--- mai.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: midori.py ---
+STDOUT:
+ツイート取得開始...
+STDERR:
+Traceback (most recent call last):
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/midori.py", line 124, in <module>
+    asyncio.run(main())
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/midori.py", line 57, in main
+    fetched_tweets = await fetch_all_tweets(client, user.id)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/midori.py", line 22, in fetch_all_tweets
+    tweets_response = await client.get_user_tweets(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 1911, in get_user_tweets
+    response, _ = await f(user_id, count, cursor)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 322, in user_tweets
+    return await self._get_user_tweets(user_id, count, cursor, Endpoint.USER_TWEETS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 319, in _get_user_tweets
+    return await self.gql_get(endpoint, variables, FEATURES)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 124, in gql_get
+    return await self.base.get(url, params=flatten_params(params), headers=headers, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 211, in get
+    return await self.request('GET', url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 198, in request
+    raise TooManyRequests(message, headers=response.headers)
+twikit.errors.TooManyRequests: status: 429, message: "Rate limit exceeded
+"
+*** midori.py exited with code 1 (initial attempt) ***
+Retrying midori.py in 300 seconds (attempt 1/5)...
+RETRY STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → いいね/リツイート更新: 159 件
+--- midori.py succeeded on retry attempt 1 ---
+Waiting 120 seconds before next script...
+--- Running: miracle.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 7 件, いいね/リツイート更新: 125 件
+--- miracle.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: noriko.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 14 件, いいね/リツイート更新: 147 件
+--- noriko.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: polka.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 7 件, いいね/リツイート更新: 173 件
+--- polka.py finished OK ---
+Waiting 120 seconds before next script...
+--- Running: shion.py ---
+STDOUT:
+ツイート取得開始...
+STDERR:
+Traceback (most recent call last):
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/shion.py", line 124, in <module>
+    asyncio.run(main())
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.13/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/shion.py", line 57, in main
+    fetched_tweets = await fetch_all_tweets(client, user.id)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/MAMP/htdocs/ikizulive/python/character_py/shion.py", line 22, in fetch_all_tweets
+    tweets_response = await client.get_user_tweets(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 1911, in get_user_tweets
+    response, _ = await f(user_id, count, cursor)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 322, in user_tweets
+    return await self._get_user_tweets(user_id, count, cursor, Endpoint.USER_TWEETS)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 319, in _get_user_tweets
+    return await self.gql_get(endpoint, variables, FEATURES)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/gql.py", line 124, in gql_get
+    return await self.base.get(url, params=flatten_params(params), headers=headers, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 211, in get
+    return await self.request('GET', url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/lib/python3.11/site-packages/twikit/client/client.py", line 198, in request
+    raise TooManyRequests(message, headers=response.headers)
+twikit.errors.TooManyRequests: status: 429, message: "Rate limit exceeded
+"
+*** shion.py exited with code 1 (initial attempt) ***
+Retrying shion.py in 300 seconds (attempt 1/5)...
+RETRY STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 8 件, いいね/リツイート更新: 198 件
+--- shion.py succeeded on retry attempt 1 ---
+Waiting 120 seconds before next script...
+--- Running: yukuri.py ---
+STDOUT:
+ツイート取得開始...
+JSON書き出し完了 → 新規追加: 6 件, いいね/リツイート更新: 113 件
+--- yukuri.py finished OK ---
+All scripts completed successfully — running merger: merger.py
+MERGER STDOUT:
+Loaded 185 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/akira_tweets.json
+Loaded 145 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/aurora_tweets.json
+Loaded 180 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/hanabi_tweets.json
+Loaded 197 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/mai_tweets.json
+Loaded 165 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/midori_tweets.json
+Loaded 141 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/miracle_tweets.json
+Loaded 174 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/noriko_tweets.json
+Loaded 221 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/polka_tweets.json
+Loaded 221 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/shion_tweets.json
+Loaded 140 items from /Applications/MAMP/htdocs/ikizulive/python/character_py/character_json/yukuri_tweets.json
+Merged 1769 items into /Applications/MAMP/htdocs/ikizulive/json/merged_tweets.json
+--- merger.py finished OK ---
+Running embed: embed.py
+EMBED STDOUT:
+No items found for 2025-12-30, selecting latest date 2025-12-26 with 13 items
+Read 1769 items from /Applications/MAMP/htdocs/ikizulive/json/merged_tweets.json
+Selected 13 items for 2025-12-26 (skipped 0 unparseable)
+Wrote /Applications/MAMP/htdocs/ikizulive/json/data.json
+--- embed.py finished OK ---
+=== Batch finished at 2025-12-30T16:04:44.846737 - overall_ok=True ===
